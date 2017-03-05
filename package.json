@@ -1,5 +1,5 @@
 {
-  "name": "SocialFinder",
+  "name": "Finder",
   "version": "1.0.0",
   "description": "webpack+angular2+typescript",
   "main": "index.js",
@@ -8,7 +8,7 @@
     "start": "webpack-dev-server --config ./webpack/webpack.js"
   },
   "keywords": [],
-  "author": "luzhanovskyi",
+  "author": "Luzhanovskyi",
   "license": "ISC",
   "dependencies": {
     "@angular/common": "^2.4.7",

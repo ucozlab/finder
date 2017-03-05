@@ -16,7 +16,8 @@ module.exports = {
     },
     devtool: 'source-map',
     entry: {
-        app: [ path.resolve(rootDir, 'src', 'app', 'main.ts') ]
+        app: [ path.resolve(rootDir, 'src', 'app', 'main.ts') ],
+        vendor: [ path.resolve(rootDir, 'src', 'vendor', 'main.ts') ]
     },
     module: {
         loaders: [

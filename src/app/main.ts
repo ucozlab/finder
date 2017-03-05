@@ -1,8 +1,5 @@
-import { Component } from '@angular/core';
+import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
 
-@Component({
-    selector: 'socialsearch-app',
-    template: `<h1>Hello {{name}}</h1>`
-})
+import AppModule from "./app.module";
 
-export class AppComponent { name = 'Socialsearch-app'; }
+platformBrowserDynamic().bootstrapModule(AppModule);
