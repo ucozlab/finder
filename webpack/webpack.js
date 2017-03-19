@@ -26,7 +26,8 @@ module.exports = {
                 loader: 'awesome-typescript-loader',
                 options: { configFileName: path.resolve(rootDir, 'tsconfig.json') }
             } , 'angular2-template-loader'] },
-            { test: /\.scss$/, loaders: [ 'style-loader', 'css-loader', 'sass-loader' ]}
+            { test: /\.scss$/, loaders: [ 'style-loader', 'css-loader', 'sass-loader' ]},
+            { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }
         ]
     },
     output: {
