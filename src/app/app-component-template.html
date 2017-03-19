@@ -8,7 +8,7 @@
                 <div class="card">
                     <figure class="front">
                         <div class="login-content__form-container login-content__form">
-                            <form class="form">
+                            <form class="form" (ngSubmit)="login()" [formGroup]="loginForm">
                                 <div class="form-header container-fluid">
                                     <h2 class="pull-left">Already member</h2>
                                     <div class="pull-right popup">
@@ -22,8 +22,8 @@
                                     </div>
                                 </div>
                                 <fieldset class="form-fieldset">
-                                    <input name="login-name" size="30"  type="text" maxlength="32" required="required" class="login" id="login-name" placeholder="Enter your name" aria-required="true" aria-invalid="false" autocomplete="off">
-                                    <input name="login-password" size="30"  type="password" maxlength="32" required="required" class="password" id="login-password" placeholder="Enter your password" aria-required="true" aria-invalid="false" autocomplete="off">
+                                    <input name="login-name" formControlName="login_name" size="30"  type="text" maxlength="32" required="required" class="login" id="login-name" placeholder="Enter your name" aria-required="true" aria-invalid="false" autocomplete="off">
+                                    <input name="login-password" formControlName="login_password" size="30"  type="password" maxlength="32" required="required" class="password" id="login-password" placeholder="Enter your password" aria-required="true" aria-invalid="false" autocomplete="off">
                                 </fieldset>
                                 <div class="form-actions container-fluid">
                                     <button type="submit" class="btn">Sign In</button>
@@ -33,13 +33,13 @@
                     </figure>
                     <figure class="back">
                         <div class="login-content__form-container newmember clearfix">
-                            <form action="" class="form newmember-form" >
+                            <form (ngSubmit)="register()" [formGroup]="registerForm" class="form newmember-form" >
                                 <div class="form-header container-fluid">
                                     <h2 class="pull-left">New member</h2>
                                 </div>
                                 <fieldset class="form-fieldset">
-                                    <input name="login-name" size="30" type="text" maxlength="32" required="required" class="login" placeholder="Enter your name" aria-required="true" aria-invalid="false" autocomplete="off">
-                                    <input name="login-password" size="30" type="password" maxlength="32" required="required" class="password" placeholder="Enter your password" aria-required="true" aria-invalid="false" autocomplete="off">
+                                    <input name="login-name" formControlName="register_password" size="30" type="text" maxlength="32" required="required" class="login" placeholder="Enter your name" aria-required="true" aria-invalid="false" autocomplete="off">
+                                    <input name="login-password" formControlName="register_password" size="30" type="password" maxlength="32" required="required" class="password" placeholder="Enter your password" aria-required="true" aria-invalid="false" autocomplete="off">
                                 </fieldset>
                                 <div class="form-actions container-fluid">
                                     <button type="submit" class="btn">Sign Up</button>
