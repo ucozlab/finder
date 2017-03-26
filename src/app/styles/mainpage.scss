@@ -163,6 +163,10 @@ input[type=text], input[type=password] {
   transition: all 0.6s ease;
   &-image {
     float: left;
+    width: 328px;
+    height: 339px;
+    background: url("../img/left-side.svg") center center no-repeat;
+    background-size: cover;
   }
   &-content {
     overflow: hidden;
