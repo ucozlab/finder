@@ -28,6 +28,8 @@
     "zone.js": "^0.7.6"
   },
   "devDependencies": {
+    "@ngrx/core": "^1.2.0",
+    "@ngrx/store": "^2.2.1",
     "angular-in-memory-web-api": "^0.2.4",
     "angular2-template-loader": "^0.6.1",
     "awesome-typescript-loader": "^3.0.0-beta.20",

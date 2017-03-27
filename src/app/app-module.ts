@@ -1,13 +1,20 @@
-import { NgModule }            from "@angular/core";
-import { BrowserModule }       from "@angular/platform-browser";
-import { HttpModule }          from '@angular/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { NgModule }             from "@angular/core";
+import { BrowserModule }        from "@angular/platform-browser";
+import { HttpModule }           from '@angular/http';
+import { ReactiveFormsModule }  from '@angular/forms';
+import { Store, StoreModule}    from "@ngrx/store";
 
-import { AppRoutingModule }    from './app-routing-module';
+import { AppRoutingModule }     from './app-routing-module';
 
-import { AppComponent }        from "./app-component";
-import { LoginPageComponent }  from "./login/login-page-component";
-import { SearchPageComponent }  from "./search/search-page-component";
+import { AppComponent }         from "./app-component";
+import { LoginPageComponent }   from "./login/login-page-component";
+import { SearchPageComponent }  from "./components/search/search-page-component";
+import { SearchInputComponent } from "./components/search/search-input-component";
+
+import { SearchReducer }        from "./reducers/search.reducer";
+import { YouTubeService }       from "./services/youtube.service";
+
+const storeManager = StoreModule.provideStore({ currentSearch: SearchReducer });
 
 @NgModule({
     imports:      [
@@ -15,14 +22,17 @@ import { SearchPageComponent }  from "./search/search-page-component";
         HttpModule,
         ReactiveFormsModule,
         AppRoutingModule,
+        StoreModule,
+        storeManager
     ],
     declarations: [
         AppComponent,
         LoginPageComponent,
-        SearchPageComponent
+        SearchPageComponent,
+        SearchInputComponent
     ],
     providers: [
-
+        YouTubeService
     ],
     bootstrap:    [
         AppComponent
