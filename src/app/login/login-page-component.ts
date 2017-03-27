@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from '@angular/router';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+
 
 @Component({
     selector: 'login-page',
@@ -10,10 +12,14 @@ export class LoginPageComponent implements OnInit {
 
     loginForm: FormGroup;
     registerForm: FormGroup;
+    router: Router;
 
     constructor (
+        private _router: Router,
         private fb: FormBuilder
-    ){}
+    ){
+        this.router = _router;
+    }
 
     createLoginForm() {
         this.loginForm = this.fb.group({
@@ -30,7 +36,13 @@ export class LoginPageComponent implements OnInit {
     }
 
     login() {
-        console.log('login');
+        // this.authService.logUserIn(this.model).then((success) => {
+        //
+        //     //This is where its broke - below:
+        //     this.router.parent.navigate('/about');
+        //
+        // });
+        this.router.navigate(['/search']);
     }
 
     register() {
