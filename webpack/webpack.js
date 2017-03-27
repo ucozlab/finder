@@ -27,7 +27,7 @@ module.exports = {
                 options: { configFileName: path.resolve(rootDir, 'tsconfig.json') }
             } , 'angular2-template-loader'] },
             { test: /\.scss$/, loaders: [ 'style-loader', 'css-loader', 'sass-loader' ]},
-            { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }
+            { test: /\.(jpg|png|woff|woff2|eot|ttf|svg)$/, loader: 'file-loader?name=img/[name].[ext]'}
         ]
     },
     output: {
