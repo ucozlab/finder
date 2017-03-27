@@ -10,7 +10,7 @@ const routes: Routes = [
     // { path: 'detail/:id', component: HeroDetailComponent },
 ];
 @NgModule({
-    imports: [ RouterModule.forRoot(routes) ],
+    imports: [ RouterModule.forRoot(routes, {useHash: true}) ],
     exports: [ RouterModule ]
 })
 export class AppRoutingModule {}
