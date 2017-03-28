@@ -1,5 +1,9 @@
 <div class="page" [ngClass]="{'page--login' : isLoggedIn}">
-    <aside class="aside"></aside>
+    <aside class="aside" style="
+    background: white;
+    position: absolute;
+    color: black;
+">isLoggedIn: {{isLoggedIn}}</aside>
     <main class="main">
         <router-outlet></router-outlet>
     </main>

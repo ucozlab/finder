@@ -1,7 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-
+import { Store } from '@ngrx/store';
 
 @Component({
     selector: 'login-page',
@@ -14,7 +14,15 @@ export class LoginPageComponent implements OnInit {
     registerForm: FormGroup;
     router: Router;
 
+    static StoreEvents = {
+        login: 'LoginForm:CORRECT_DATA'
+    };
+
+    // @Input()
+    // store: Store<any>;
+
     constructor (
+        private store: Store<any>,
         private _router: Router,
         private fb: FormBuilder
     ){
@@ -42,6 +50,13 @@ export class LoginPageComponent implements OnInit {
         //     this.router.parent.navigate('/about');
         //
         // });
+        this.store.dispatch({
+            type: LoginPageComponent.StoreEvents.login,
+            payload: {
+                isLoggedIn : true
+                //data: somedata
+            }
+        });
         this.router.navigate(['/search']);
     }
 

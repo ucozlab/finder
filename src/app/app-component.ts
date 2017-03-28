@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
+import { Store } from '@ngrx/store';
 
 @Component({
     selector: 'finder-app',
@@ -8,10 +9,22 @@ import { Component } from "@angular/core";
 export class AppComponent {
 
     isLoggedIn: boolean = false;
+    private currentState: any;
 
     constructor (
+        private store: Store<any>,
+    ) {
+        this.currentState = this.store.select('loginState');
+    }
 
-    ){}
+    ngOnInit(): void {
+
+        this.currentState.subscribe((state: any) => {
+            console.log('state', state);
+            state && (this.isLoggedIn = state.isLoggedIn);
+        });
+
+    }
 
 }
 

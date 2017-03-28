@@ -32,6 +32,7 @@ export class SearchPageComponent {
     ngOnInit() {
         this.currentSearch.subscribe((state: CurrentSearch) => {
             this.state = state;
+            console.log('state', state);
             if (state && state.name && state.name.length > 0) {
                 this.disableSearch = false;
                 this.errorEmptySearch = false;
