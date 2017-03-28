@@ -1,10 +1,9 @@
 import { ActionReducer, Action } from '@ngrx/store';
-import { LoginPageComponent } from '../components/login/login-page-component';
+import { LoginFormComponent } from '../components/login/login-form-component';
 
 export const LoginReducer: ActionReducer<any> = (state: {}, action: Action) => {
     switch (action.type) {
-         case LoginPageComponent.StoreEvents.login:
-             console.log('hello reducer');
+         case LoginFormComponent.StoreEvents.login:
              return Object.assign({}, state, {
                  isLoggedIn: action.payload.isLoggedIn
              });

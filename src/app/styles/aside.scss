@@ -1,0 +1,43 @@
+.aside {
+  @extend .table;
+  position: fixed;
+  z-index: 1;
+  height: 100%;
+  width: 230px;
+  &-logo {
+    position: absolute;
+    top: 20px;
+    left: 15px;
+    height: 64px;
+    background: url(../img/cloud-search.svg) left center no-repeat;
+    background-size: 64px;
+    color: $white;
+    padding-left: 64px;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+  }
+  &-menu {
+    @extend .table-cell;
+    width: 100%;
+    padding-left: 15px;
+    &__item {
+      display: block;
+      margin: 15px 0;
+      a {
+        font-size: 14px;
+        color: fade_out($white, 0.4);
+        &:hover {
+          color: $white;
+        }
+      }
+    }
+  }
+  &-footer {
+    position: absolute;
+    bottom: 10px;
+    left: 15px;
+    color: $gray-light;
+    font-size: 10px;
+  }
+}

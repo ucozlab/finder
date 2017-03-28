@@ -10,6 +10,8 @@ import { AppComponent }         from "./app-component";
 import { LoginPageComponent }   from "./components/login/login-page-component";
 import { SearchPageComponent }  from "./components/search/search-page-component";
 import { SearchInputComponent } from "./components/search/search-input-component";
+import { LoginFormComponent }   from "./components/login/login-form-component";
+import { AsideComponent }       from "./components/aside/aside-component";
 
 import { SearchReducer }        from "./reducers/search.reducer";
 import { LoginReducer }         from "./reducers/login.reducer";
@@ -33,7 +35,9 @@ const storeManager = StoreModule.provideStore({
         AppComponent,
         LoginPageComponent,
         SearchPageComponent,
-        SearchInputComponent
+        SearchInputComponent,
+        LoginFormComponent,
+        AsideComponent,
     ],
     providers: [
         YouTubeService
