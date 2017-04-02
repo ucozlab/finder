@@ -16,6 +16,7 @@ import { AsideComponent }       from "./components/aside/aside-component";
 import { SearchReducer }        from "./reducers/search.reducer";
 import { LoginReducer }         from "./reducers/login.reducer";
 import { YouTubeService }       from "./services/youtube.service";
+import { PagerService }         from "./services/pagination";
 
 const storeManager = StoreModule.provideStore({
     currentSearch: SearchReducer,
@@ -40,7 +41,8 @@ const storeManager = StoreModule.provideStore({
         AsideComponent,
     ],
     providers: [
-        YouTubeService
+        YouTubeService,
+        PagerService
     ],
     bootstrap:    [
         AppComponent

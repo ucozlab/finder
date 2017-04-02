@@ -1,0 +1,9 @@
+.pagination {
+  justify-content: center;
+  margin: 30px 0;
+  width: 100%;
+}
+
+.page-item.disabled .page-link {
+  color: $gray !important;
+}

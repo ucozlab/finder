@@ -4,7 +4,7 @@ import {Store} from '@ngrx/store';
 
 @Component({
     selector: 'search-input',
-    template: `<input type="text" class="form-control" placeholder="Search..." autofocus>`
+    template: `<input type="text" class="form-control search-input" placeholder="Search..." autofocus>`
 })
 
 export class SearchInputComponent implements OnInit {

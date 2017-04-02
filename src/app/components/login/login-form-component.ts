@@ -57,6 +57,7 @@ export class LoginFormComponent implements OnInit {
                 //data: somedata
             }
         });
+        localStorage.setItem('loggedInDb', 'true');
         this.router.navigate(['/search']);
     }
 

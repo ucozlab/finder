@@ -1,7 +1,7 @@
 html {
   font-size: $base-font-size;
   font-family: $base-font-family;
-  color: $white;
+  color: $black;
 }
 
 html, body {
@@ -58,7 +58,7 @@ input[type=text], input[type=password] {
 }
 
 .page {
-  background-color: $orange;
+  background-color: $white;
   transition: all 0.3s ease;
   &:before {
     display: block;
@@ -112,6 +112,8 @@ input[type=text], input[type=password] {
     }
   }
   &--login {
+    color: $white;
+    background-color: $orange;
     &:before {
       width: 48%;
     }
@@ -120,4 +122,9 @@ input[type=text], input[type=password] {
 
 .main {
   padding-left: 350px;
+  height: 100%;
+}
+
+.content {
+  padding-top: 30px;
 }

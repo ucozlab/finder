@@ -3,5 +3,11 @@
 @import "./helpers";
 @import "./main";
 @import "./aside";
-@import "./grid12";
+@import "./pagination";
 @import "./pages/login";
+@import "./pages/search";
+@import "~bootstrap/scss/_variables";
+@import "~bootstrap/scss/_mixins";
+@import "~bootstrap/scss/_utilities";
+@import "~bootstrap/scss/_grid";
+@import '~bootstrap/scss/_pagination';

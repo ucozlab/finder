@@ -1,7 +1,7 @@
 import {Observable, BehaviorSubject} from 'rxjs/Rx';
 import {Injectable} from '@angular/core';
 import {Response, Http} from '@angular/http';
-import {SearchResult} from '../models/search-result.model';
+import {AllResults} from '../models/search-result.model';
 import {CurrentSearch} from '../models/current-search.model';
 
 const YOUTUBE_API_KEY = 'AIzaSyBUU9hIIs9S0Qo2d7cgoxxoPyh2iEbH5z0';
@@ -12,11 +12,14 @@ const LOCATION_TEMPLATE = 'location={latitude},{longitude}&locationRadius={radiu
 @Injectable()
 export class YouTubeService {
 
-    searchResults: BehaviorSubject<SearchResult[]> = new BehaviorSubject<SearchResult[]>([]);
+    searchResults: BehaviorSubject<AllResults> = new BehaviorSubject<AllResults>({
+        availableResults: 0,
+        searchResults: []
+    });
 
     constructor( private http: Http ) {}
     
-    search(query: CurrentSearch): Observable<SearchResult[]>  {
+    search(query: CurrentSearch): Observable<AllResults>  {
         let params = [
             `q=${query.name}`,
             `key=${YOUTUBE_API_KEY}`,
@@ -40,17 +43,24 @@ export class YouTubeService {
         console.log(queryUrl);
         
         this.http.get(queryUrl)
-            .map((response: Response) => {
-                console.log(response);
-                return <any>response.json().items.map((item:any) => {
-                    return {
-                        id: item.id.videoId,
-                        title: item.snippet.title,
-                        thumbnailUrl: item.snippet.thumbnails.high.url
-                    };
-                });
+            .map((response:any) => {
+                const result = response.json();
+                const allResults = {
+                    availableResults: result.pageInfo.totalResults,
+                    searchResults: result.items.map((item:any) => {
+                        return {
+                            id: item.id.videoId,
+                            kind: item.kind,
+                            title: item.snippet.title,
+                            description: item.snippet.description,
+                            thumbnailUrl: item.snippet.thumbnails.high.url
+                        };
+                    })
+                };
+                console.log(result);
+                return allResults;
             })
-            .subscribe((results: SearchResult[]) => this.searchResults.next(results));
+            .subscribe((results: AllResults) => this.searchResults.next(results));
 
         return this.searchResults;
     }

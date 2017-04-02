@@ -7,7 +7,7 @@ const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'login',  component: LoginPageComponent },
     { path: 'search',  component: SearchPageComponent },
-    // { path: 'detail/:id', component: HeroDetailComponent },
+    { path: 'post/:id', component: SearchPageComponent },
 ];
 @NgModule({
     imports: [ RouterModule.forRoot(routes, {useHash: true}) ],

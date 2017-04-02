@@ -19,6 +19,8 @@ export class AppComponent {
 
     ngOnInit(): void {
 
+        this.isLoggedIn = JSON.parse(localStorage.getItem('loggedInDb'));
+
         this.currentState.subscribe((state: any) => {
             console.log('state', state);
             state && (this.isLoggedIn = state.isLoggedIn);
