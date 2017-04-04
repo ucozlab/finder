@@ -1,15 +1,18 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 import {Store} from "@ngrx/store";
+import { FormsModule } from '@angular/forms';
 
 import {CurrentSearch} from "../../models/current-search.model";
 import {AllResults, SearchResult} from "../../models/search-result.model";
 import {YouTubeService} from "../../services/youtube.service";
 import {PagerService} from "../../services/pagination";
+import {TwitterService} from "../../services/twitter.service";
 
 @Component({
     selector: 'search-page',
-    templateUrl: 'search-page-template.html'
+    templateUrl: 'search-page-template.html',
+    providers: [TwitterService]
 })
 
 export class SearchPageComponent {
@@ -22,6 +25,7 @@ export class SearchPageComponent {
     private errorEmptySearch = true;
     private errorLocation = false;
     private errorLocationMessage = '';
+    private tweetsData: any;
 
     // pager object
     pager: any = {};
@@ -31,7 +35,8 @@ export class SearchPageComponent {
     constructor(
         private store: Store<CurrentSearch>,
         private youtube: YouTubeService,
-        private pagerService: PagerService
+        private pagerService: PagerService,
+        private twitter: TwitterService
     ) {
         this.currentSearch = this.store.select<CurrentSearch>('currentSearch');
         this.youtube.searchResults.subscribe((results: AllResults) => {
@@ -39,8 +44,11 @@ export class SearchPageComponent {
             this.searchResults = results.searchResults;
             this.setPage(1);
         });
+        this.twitter.searchResults.subscribe((results) => this.tweetsData = results);
     }
-
+    searchcall(searchquery: string):void {
+        this.twitter.searchcall(searchquery);
+    }
     ngOnInit() {
         this.currentSearch.subscribe((state: CurrentSearch) => {
             this.state = state;

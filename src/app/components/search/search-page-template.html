@@ -1,3 +1,27 @@
+<div class="row">
+    <div class="search-bar">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <input #searchBox id="search-box"  /><!--(keyup)="search(searchBox.value)"-->
+                    <label for="search-box">Search by hashtags</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="waves-effect waves-light btn" (click)="searchcall(searchBox.value)">Search</button>
+    <div class="search-results">
+        <div *ngFor="let item of tweetsData" class="row col-md-8">
+            <div class="search-result">
+                <div class="card-image">
+                    <img style={width:10px;height:10px;} src={{item.user.profile_image_url}}>
+                </div>
+                <a class="search-result__title" >{{item.user.name}}</a>
+                <p class="search-result__description">{{item.text}}</p>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="search-bar">
     <div class="container">
         <div class="row">
