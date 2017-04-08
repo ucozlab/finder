@@ -37,22 +37,17 @@ if(isset($_POST)) {
 //*probably - it's not documentated that it'll ever change.
     $bearer_token = $result['access_token'];
 
-    if (!empty($_POST['query'])) {
-        $opts2 = array(
-            'http'=>array(
-                'method' => 'GET',
-                'header' => 'Authorization: Bearer '.$bearer_token
-            )
-        );
-        $context = stream_context_create($opts2);
-        $json = file_get_contents($api_base.'1.1/search/tweets.json?q='.$_POST['query'].'&result_type=recent',false,$context);
-        //$json = file_get_contents('https://api.twitter.com/1.1/search/tweets.json?q=%23superbowl&result_type=recent',false,$context);
-        $tweets = json_decode($json,true);
-    }
+    /*$opts2 = array(
+        'http'=>array(
+            'method' => 'GET',
+            'header' => 'Authorization: Bearer '.$bearer_token
+        )
+    );
+    $context = stream_context_create($opts);
+    $json = file_get_contents($api_base.'1.1/search/tweets.json?q='.$_POST.'&result_type=recent');
+    $tweets = json_decode($json,true);*/
 
-    header('Content-Type: application/json');
-    echo json_encode($tweets);
-    //echo $tweets;
+    echo $_POST;
     return true;
 }
 
