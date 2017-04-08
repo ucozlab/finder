@@ -38,7 +38,7 @@ export class LoginFormComponent implements OnInit {
     }
 
     register() {
-        console.log('login');
+        this.authService.registerUser(this.registerForm) && this.flipCard('Sign In');
     }
 
     flipCard(text: string) {

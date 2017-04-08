@@ -76,15 +76,12 @@ export class AuthService implements CanActivate {
         //     })
         //     .catch(this.handleError);
 
-        const loginPresent = _.filter(JSON.parse(localStorage.getItem('users')), {
-                login: data.controls.login_name._value
-        }).length > 0;
-
-        const passwordPresent = _.filter(JSON.parse(localStorage.getItem('users')), {
+        const userPresent = _.filter(JSON.parse(localStorage.getItem('users')), {
+                login: data.controls.login_name._value,
                 password: data.controls.login_password._value
         }).length > 0;
 
-        if (!loginPresent || !passwordPresent) {
+        if (!userPresent) {
             this.store.dispatch({
                 type: ACTIONTYPES.shake,
                 payload: {
@@ -134,6 +131,38 @@ export class AuthService implements CanActivate {
                 isLoggedIn : false
             }
         });
+    }
+
+    registerUser(data:any): boolean {
+        const
+            login = data.controls.register_name._value,
+            password = data.controls.register_password._value;
+
+        if (!login || !password) {
+            this.store.dispatch({
+                type: ACTIONTYPES.shake,
+                payload: {
+                    shakeForm : true
+                }
+            });
+            setTimeout(() => {
+                this.store.dispatch({
+                    type: ACTIONTYPES.shake,
+                    payload: {
+                        shakeForm : false
+                    }
+                });
+            }, 1000);
+            return false;
+        } else {
+            const newUsers = JSON.parse(localStorage.getItem('users'));
+            newUsers.push({
+                login,
+                password
+            });
+            localStorage.setItem('users', JSON.stringify(newUsers));
+            return true;
+        }
     }
 
     isLoggedIn() {
