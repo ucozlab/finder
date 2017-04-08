@@ -5,6 +5,7 @@ const
     path          = require('path'),
     webpack       = require('webpack'),
     CheckerPlugin = require('awesome-typescript-loader'),
+    CopyWebpackPlugin = require('copy-webpack-plugin'),
     ChunkWebpack  = webpack.optimize.CommonsChunkPlugin,
     rootDir       = path.resolve(__dirname, '..');
 
@@ -27,7 +28,7 @@ module.exports = {
                 options: { configFileName: path.resolve(rootDir, 'tsconfig.json') }
             } , 'angular2-template-loader'] },
             { test: /\.scss$/, loaders: [ 'style-loader', 'css-loader', 'sass-loader' ]},
-            { test: /\.(jpg|png|woff|woff2|eot|ttf|svg)$/, loader: 'file-loader?name=img/[name].[ext]'}
+            { test: /\.(jpg|png|woff|woff2|eot|ttf|svg|json)$/, loader: 'file-loader?name=img/[name].[ext]'}
         ]
     },
     output: {
@@ -35,6 +36,9 @@ module.exports = {
         path: path.resolve(rootDir, 'dist')
     },
     plugins: [
+        new CopyWebpackPlugin([
+            { from: 'src/app/mock-data' }
+        ]),
         new ChunkWebpack({
             filename: 'vendor.bundle.js',
             minChunks: Infinity,
