@@ -1,6 +1,7 @@
 import {Observable} from 'rxjs/Rx';
 import {ElementRef, OnInit, Component, Input} from '@angular/core';
 import {Store} from '@ngrx/store';
+import ACTIONTYPES from '../../actions/types';
 
 @Component({
     selector: 'search-input',
@@ -8,10 +9,6 @@ import {Store} from '@ngrx/store';
 })
 
 export class SearchInputComponent implements OnInit {
-
-    static StoreEvents = {
-        text: 'SearchBox:TEXT_CHANGED'
-    };
 
     @Input()
     store: Store<any>;
@@ -24,7 +21,7 @@ export class SearchInputComponent implements OnInit {
             .debounceTime(500)
             .subscribe((text: string) =>
                 this.store.dispatch({
-                    type: SearchInputComponent.StoreEvents.text,
+                    type: ACTIONTYPES.searchtext,
                     payload: {
                         text: text
                     }

@@ -1,5 +1,5 @@
 <div class="login-content">
-    <div class="card">
+    <div class="card" [ngClass]="{flipped:fliptext === 'Sign In'}">
         <figure class="front">
             <div class="login-content__form-container login-content__form">
                 <form class="form" (ngSubmit)="login()" [formGroup]="loginForm">
@@ -32,7 +32,7 @@
                         <h2 class="pull-left">New member</h2>
                     </div>
                     <fieldset class="form-fieldset">
-                        <input name="login-name" formControlName="register_password" size="30" type="text" maxlength="32" required="required" class="login" placeholder="Enter your name" aria-required="true" aria-invalid="false" autocomplete="off">
+                        <input name="login-name" formControlName="register_name" size="30" type="text" maxlength="32" required="required" class="login" placeholder="Enter your name" aria-required="true" aria-invalid="false" autocomplete="off">
                         <input name="login-password" formControlName="register_password" size="30" type="password" maxlength="32" required="required" class="password" placeholder="Enter your password" aria-required="true" aria-invalid="false" autocomplete="off">
                     </fieldset>
                     <div class="form-actions container-fluid">
@@ -52,7 +52,7 @@
         </figure>
     </div>
     <div class="login-content__footer">
-        <p>Don’t have an account yet ?</p>
-        <a class="create-account_link" href="javascript://"  >Create an account</a>
+        <p>{{flipsecondary}}</p>
+        <a class="create-account_link" href="javascript://" (click)="flipCard(fliptext)" >{{fliptext}}</a>
     </div>
 </div>
