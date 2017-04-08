@@ -12,11 +12,40 @@ export class AuthService implements CanActivate {
 
     private authUrl = 'api/users';  // URL to web api
     private headers = new Headers({'Content-Type': 'application/json'});
+    private users = [
+            {
+                "id": 0,
+                "login": "Artem",
+                "password": "123"
+            },
+            {
+                "id": 1,
+                "login": "Jack",
+                "password": "213"
+            },
+            {
+                "id": 2,
+                "login": "Martin",
+                "password": "123"
+            },
+            {
+                "id": 3,
+                "login": "test",
+                "password": "123"
+            }
+        ];
 
     constructor(
         private store: Store<any>,
         private http: Http
-    ) {}
+    ) {
+        !this.checkLocalStorage() && alert('Sorry, yor browser doesn\'t support localstorage :( Please try another(e.g. Chrome)');
+        !localStorage.getItem('users') && localStorage.setItem('users', JSON.stringify(this.users));
+    }
+
+    checkLocalStorage () {
+        return ('localStorage' in window && window['localStorage'] !== null);
+    }
 
     canActivate() {
         console.log('AuthGuard#canActivate called');
@@ -24,37 +53,62 @@ export class AuthService implements CanActivate {
     }
 
     logUserIn(data:any) {
-        return this.http
-            // .post(this.authUrl, JSON.stringify({name: name}), {headers: this.headers})
-            .get('./users.json')
-            .toPromise()
-            .then(response => {
+        // return this.http
+        //     // .post(this.authUrl, JSON.stringify({name: name}), {headers: this.headers})
+        //     .get('./users.json')
+        //     .toPromise()
+        //     .then(response => {
+        //
+        //         const loginPresent = _.filter(response.json(), {
+        //             login: data.controls.login_name._value,
+        //             password: data.controls.login_password._value
+        //         }).length > 0;
+        //
+        //         this.store.dispatch({
+        //             type: ACTIONTYPES.login,
+        //             payload: {
+        //                 isLoggedIn : loginPresent
+        //                 //data: somedata
+        //             }
+        //         });
+        //         // localStorage.setItem('loggedInDb', 'true');
+        //         console.log('response->', response.json());
+        //     })
+        //     .catch(this.handleError);
 
-                const loginPresent = _.filter(response.json(), {
-                    login: data.controls.login_name._value,
-                    password: data.controls.login_password._value
-                }).length > 0;
+        const loginPresent = _.filter(JSON.parse(localStorage.getItem('users')), {
+                login: data.controls.login_name._value
+        }).length > 0;
 
+        const passwordPresent = _.filter(JSON.parse(localStorage.getItem('users')), {
+                password: data.controls.login_password._value
+        }).length > 0;
+
+        if (!loginPresent || !passwordPresent) {
+            this.store.dispatch({
+                type: ACTIONTYPES.shake,
+                payload: {
+                    shakeForm : true
+                }
+            });
+            setTimeout(() => {
                 this.store.dispatch({
-                    type: ACTIONTYPES.login,
+                    type: ACTIONTYPES.shake,
                     payload: {
-                        isLoggedIn : loginPresent
-                        //data: somedata
+                        shakeForm : false
                     }
                 });
-                // localStorage.setItem('loggedInDb', 'true');
-                console.log('response->', response.json());
-            })
-            .catch(this.handleError);
-        // console.log('data->', data);
-        // // temp1.controls.login_name._value
-        // this.store.dispatch({
-        //     type: ACTIONTYPES.login,
-        //     payload: {
-        //         isLoggedIn : true
-        //         //data: somedata
-        //     }
-        // });
+            }, 1000);
+        }
+        else {
+            localStorage.setItem("isLoggedSession", "true");
+            this.store.dispatch({
+                type: ACTIONTYPES.login,
+                payload: {
+                    isLoggedIn : true
+                }
+            });
+        }
     }
 
     logUserOut() {
@@ -73,12 +127,17 @@ export class AuthService implements CanActivate {
         //     })
         //     .catch(this.handleError);
         // temp1.controls.login_name._value
+        localStorage.setItem("isLoggedSession", "false");
         this.store.dispatch({
             type: ACTIONTYPES.login,
             payload: {
                 isLoggedIn : false
             }
         });
+    }
+
+    isLoggedIn() {
+        return JSON.parse(localStorage.getItem('isLoggedSession'));
     }
 
     private handleError(error: any): Promise<any> {

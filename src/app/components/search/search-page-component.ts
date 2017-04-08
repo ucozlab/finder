@@ -36,7 +36,7 @@ export class SearchPageComponent {
         private store: Store<CurrentSearch>,
         private youtube: YouTubeService,
         private pagerService: PagerService,
-        private twitter: TwitterService
+        private twitter: TwitterService,
     ) {
         this.currentSearch = this.store.select<CurrentSearch>('currentSearch');
         this.youtube.searchResults.subscribe((results: AllResults) => {
@@ -50,6 +50,7 @@ export class SearchPageComponent {
         this.twitter.searchcall(searchquery);
     }
     ngOnInit() {
+
         this.currentSearch.subscribe((state: CurrentSearch) => {
             this.state = state;
 

@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { Router } from '@angular/router';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from "@ngrx/store";
 import { AuthService } from '../../services/auth-service';
@@ -13,17 +12,15 @@ export class LoginFormComponent implements OnInit {
 
     loginForm: FormGroup;
     registerForm: FormGroup;
-    router: Router;
     fliptext: string;
     flipsecondary: string;
+    shakeForm: boolean = false;
 
     constructor (
-        private _router: Router,
         private fb: FormBuilder,
         private store: Store<any>,
         private authService: AuthService
     ){
-        this.router = _router;
         this.fliptext = 'Create an account';
         this.flipsecondary = "Don’t have an account yet ?";
         this.loginForm = this.fb.group({
@@ -63,7 +60,7 @@ export class LoginFormComponent implements OnInit {
 
     ngOnInit(): void {
         this.store.select<any>('loginState').subscribe((state) => {
-            state && state.isLoggedIn && this.router.navigate(['/search']);
+            state && (this.shakeForm = state.shakeForm);
         });
     }
 }

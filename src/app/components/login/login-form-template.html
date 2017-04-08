@@ -1,7 +1,13 @@
 <div class="login-content">
     <div class="card" [ngClass]="{flipped:fliptext === 'Sign In'}">
         <figure class="front">
-            <div class="login-content__form-container login-content__form">
+            <div
+                    class="login-content__form-container login-content__form"
+                    [ngClass]="{
+                        animated: shakeForm,
+                        shake: shakeForm
+                    }"
+            >
                 <form class="form" (ngSubmit)="login()" [formGroup]="loginForm">
                     <div class="form-header container-fluid">
                         <h2 class="pull-left">Already member</h2>
