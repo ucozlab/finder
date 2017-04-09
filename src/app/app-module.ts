@@ -12,6 +12,7 @@ import { SearchPageComponent }  from "./components/search/search-page-component"
 import { SearchInputComponent } from "./components/search/search-input-component";
 import { LoginFormComponent }   from "./components/login/login-form-component";
 import { AsideComponent }       from "./components/aside/aside-component";
+import { PostPageComponent }    from "./components/post/post-page-component";
 
 import { SearchReducer }        from "./reducers/search.reducer";
 import { LoginReducer }         from "./reducers/login.reducer";
@@ -21,6 +22,8 @@ import { PagerService }         from "./services/pagination";
 import { AuthService }          from "./services/auth-service";
 import { VimeoService }         from "./services/vimeo-service";
 import { TwitterService }       from "./services/twitter.service";
+
+import { SafePipe }             from "./pipes/safe-pipe";
 
 const storeManager = StoreModule.provideStore({
     currentSearch: SearchReducer,
@@ -43,6 +46,8 @@ const storeManager = StoreModule.provideStore({
         SearchInputComponent,
         LoginFormComponent,
         AsideComponent,
+        PostPageComponent,
+        SafePipe
     ],
     providers: [
         YouTubeService,

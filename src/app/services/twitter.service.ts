@@ -29,7 +29,7 @@ export class TwitterService {
 						id: item.id,
 						kind: 'twitter',
 						title: item.text,
-						description: `${item.user.name} @ ${moment(item.user.created_at).format("MMM Do YYYY")}`,
+						description: `${item.user.name} @ ${moment(item.created_at).format("MMM Do YYYY")}`,
 						thumbnailUrl: item.entities.media && item.entities.media["0"] && item.entities.media["0"].media_url
 					};
 				});

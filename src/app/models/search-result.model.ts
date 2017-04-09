@@ -1,4 +1,4 @@
-export interface SearchResult {
+export interface Post {
     id: string;
     kind: string;
     title: string;
@@ -8,5 +8,5 @@ export interface SearchResult {
 
 export interface AllResults {
     availableResults: number;
-    searchResults: SearchResult[];
+    searchResults: Post[];
 }
