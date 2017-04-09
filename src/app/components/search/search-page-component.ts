@@ -18,18 +18,14 @@ import {TwitterService} from "../../services/twitter.service";
 export class SearchPageComponent {
 
     private state: CurrentSearch;
-    private currentSearch: Observable<CurrentSearch>;
     private searchResults: SearchResult[] = [];
     private availableResults: number = 0;
     private disableSearch = false;
     private errorEmptySearch = true;
     private errorLocation = false;
     private errorLocationMessage = '';
-    private tweetsData: any;
 
-    // pager object
     pager: any = {};
-    // paged items
     pagedItems: any[];
 
     constructor(
@@ -37,27 +33,18 @@ export class SearchPageComponent {
         private youtube: YouTubeService,
         private pagerService: PagerService,
         private twitter: TwitterService,
-    ) {
-        this.currentSearch = this.store.select<CurrentSearch>('currentSearch');
-        this.youtube.searchResults.subscribe((results: AllResults) => {
-            this.availableResults = results.availableResults;
-            this.searchResults = results.searchResults;
-            this.setPage(1);
-        });
-        this.twitter.searchResults.subscribe((results) => this.tweetsData = results);
-    }
-    searchcall(searchquery: string):void {
-        this.twitter.searchcall(searchquery);
-    }
+    ) {}
     ngOnInit() {
 
-        this.currentSearch.subscribe((state: CurrentSearch) => {
+        //subscribe to search input changes
+        this.store.select<CurrentSearch>('currentSearch').subscribe((state: CurrentSearch) => {
             this.state = state;
 
             if (state && state.name && state.name.length > 0) {
                 this.disableSearch = false;
                 this.errorEmptySearch = false;
                 this.youtube.search(state);
+                this.twitter.searchcall(state);
             } else {
                 this.disableSearch = true;
                 this.errorEmptySearch = true;
@@ -71,18 +58,29 @@ export class SearchPageComponent {
                 this.errorLocation = false;
             }
         });
+
+        //subscribe to youtube results
+        this.youtube.searchResults.subscribe((results: AllResults) => {
+            this.availableResults = results.availableResults;
+            this.searchResults.push(...results.searchResults);
+            this.setPage(1);
+        });
+
+        //subscribe to twitter results
+        this.twitter.searchResults.subscribe((results) => {
+            this.searchResults.push(...results);
+            this.searchResults = this.searchResults.sort(compareRandom);
+            this.setPage(1);
+        });
+
+        function compareRandom(a:any, b:any) {
+            return Math.random() - 0.5;
+        }
+
     }
 
     setPage(page: number) {
-
-        // if (page < 1 || page > this.pager.totalPages) {
-        //      return;
-        // }
-
-        // get pager object from service
         this.pager = this.pagerService.getPager(this.searchResults.length, page);
-
-        // get current page of items
         this.pagedItems = this.searchResults.slice(this.pager.startIndex, this.pager.endIndex + 1);
     }
 

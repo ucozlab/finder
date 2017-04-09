@@ -28,7 +28,7 @@ module.exports = {
                 options: { configFileName: path.resolve(rootDir, 'tsconfig.json') }
             } , 'angular2-template-loader'] },
             { test: /\.scss$/, loaders: [ 'style-loader', 'css-loader', 'sass-loader' ]},
-            { test: /\.(jpg|png|woff|woff2|eot|ttf|svg|json)$/, loader: 'file-loader?name=img/[name].[ext]'}
+            { test: /\.(jpg|png|woff|woff2|eot|ttf|svg|json|php)$/, loader: 'file-loader?name=img/[name].[ext]'}
         ]
     },
     output: {
@@ -37,7 +37,7 @@ module.exports = {
     },
     plugins: [
         new CopyWebpackPlugin([
-            { from: 'src/app/mock-data' }
+            { from: 'backend' }
         ]),
         new ChunkWebpack({
             filename: 'vendor.bundle.js',

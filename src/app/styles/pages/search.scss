@@ -17,6 +17,21 @@
   &-result {
     margin-bottom: 15px;
     &__title {
+      position: relative;
+      text-indent: 20px;
+      display: block;
+      i {
+        position: absolute;
+        top: 4px;
+        left: -20px;
+        font-size: 18px;
+        &.fa-twitter-square {
+          color: $twitter;
+        }
+        &.fa-youtube-square {
+          color: $youtube;
+        }
+      }
       h2 {
         margin:0 0 5px 0;
       }

@@ -169,6 +169,16 @@ export class AuthService implements CanActivate {
         return JSON.parse(localStorage.getItem('isLoggedSession'));
     }
 
+    addUserSearch(query:string) {
+        // const newUsers = JSON.parse(localStorage.getItem('users'));
+        // newUsers.push({
+        //     login,
+        //     password
+        // });
+        // localStorage.setItem('users', JSON.stringify(newUsers));
+        return JSON.parse(localStorage.getItem('isLoggedSession'));
+    }
+
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);

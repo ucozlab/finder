@@ -1,6 +1,6 @@
 import {Observable, BehaviorSubject} from 'rxjs/Rx';
 import {Injectable} from '@angular/core';
-import {Response, Http} from '@angular/http';
+import {Http} from '@angular/http';
 import {AllResults} from '../models/search-result.model';
 import {CurrentSearch} from '../models/current-search.model';
 
@@ -50,7 +50,7 @@ export class YouTubeService {
                     searchResults: result.items.map((item:any) => {
                         return {
                             id: item.id.videoId,
-                            kind: item.kind,
+                            kind: "youtube",
                             title: item.snippet.title,
                             description: item.snippet.description,
                             thumbnailUrl: item.snippet.thumbnails.high.url

@@ -1,7 +1,7 @@
 import { Component, Input } from "@angular/core";
 import { Store } from '@ngrx/store';
 import { AuthService } from './services/auth-service';
-import {Router} from "@angular/router";
+import { Router } from "@angular/router";
 
 @Component({
     selector: 'finder-app',
@@ -12,7 +12,6 @@ export class AppComponent {
 
     isLoggedIn: boolean = false;
     router: Router;
-    private currentState: any;
 
     constructor (
         private _router: Router,
@@ -26,11 +25,7 @@ export class AppComponent {
 
         this.isLoggedIn = this.authService.isLoggedIn();
 
-        if (this.isLoggedIn) {
-            this.router.navigate(['/search']);
-        } else {
-            this.router.navigate(['/login']);
-        }
+        this.isLoggedIn ? this.router.navigate(['/search']) : this.router.navigate(['/login']);
 
         this.store.select('loginState').subscribe((state: any) => {
             state && (this.isLoggedIn = state.isLoggedIn);

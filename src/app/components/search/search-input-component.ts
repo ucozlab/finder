@@ -1,6 +1,7 @@
 import {Observable} from 'rxjs/Rx';
 import {ElementRef, OnInit, Component, Input} from '@angular/core';
 import {Store} from '@ngrx/store';
+import {CurrentSearch} from "../../models/current-search.model";
 import ACTIONTYPES from '../../actions/types';
 
 @Component({
@@ -10,10 +11,10 @@ import ACTIONTYPES from '../../actions/types';
 
 export class SearchInputComponent implements OnInit {
 
-    @Input()
-    store: Store<any>;
-
-    constructor(private el: ElementRef) {}
+    constructor(
+        private el: ElementRef,
+        private store: Store<any>
+    ) {}
 
     ngOnInit(): void {
         Observable.fromEvent(this.el.nativeElement, 'keyup')
@@ -27,6 +28,9 @@ export class SearchInputComponent implements OnInit {
                     }
                 })
             );
+        this.store.select<CurrentSearch>('currentSearch').subscribe((state: CurrentSearch) => {
+
+        });
     }
 
 }
