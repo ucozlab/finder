@@ -16,7 +16,12 @@ const client_id = 'd2dc82abc8a130f15121b249d6f5727eb540315b',
 	$token = $lib->clientCredentials(scope);
 	$lib->setToken($token['body']['access_token']);
 
-	if(isset($_POST['query'])) {
+	if(isset ($_POST['video_id'])) {
+		$search_results = $lib->request('/videos/' . $_POST['video_id']);		
+		header('Content-Type: application/json');
+		echo json_encode($search_results);
+		
+	} else if(isset($_POST['query'])) {
 		$search_results = $lib->request('/videos', array('page' => 1, $_POST['per_page'], 'query' => urlencode($_POST['query']), 'sort' => 'relevant', 'direction' => 'desc', 'filter' => 'CC'));
 		
 		header('Content-Type: application/json');
