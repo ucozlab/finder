@@ -11,4 +11,12 @@
   &-data {
     margin-bottom: 20px;
   }
+  &-actions {
+    &__bookmark {
+      font-size: 24px;
+      &:hover, &--active {
+        color: $orange;
+      }
+    }
+  }
 }

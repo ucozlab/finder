@@ -16,6 +16,7 @@ import { PostPageComponent }    from "./components/post/post-page-component";
 
 import { SearchReducer }        from "./reducers/search.reducer";
 import { LoginReducer }         from "./reducers/login.reducer";
+import { BookmarkReducer }      from "./reducers/bookmark-reducer";
 
 import { YouTubeService }       from "./services/youtube.service";
 import { PagerService }         from "./services/pagination";
@@ -27,7 +28,8 @@ import { SafePipe }             from "./pipes/safe-pipe";
 
 const storeManager = StoreModule.provideStore({
     currentSearch: SearchReducer,
-    loginState: LoginReducer
+    loginState: LoginReducer,
+    bookmarkState: BookmarkReducer
 });
 
 @NgModule({

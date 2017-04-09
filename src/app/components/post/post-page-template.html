@@ -21,7 +21,14 @@
             </div>
             <div class="col-md-4 col-xs-12">
                 <div class="post-actions">
-                    <a class="search-result__title" "></a>
+                    <a
+                        class="post-actions__bookmark"
+                        [ngClass]="{'post-actions__bookmark--active':isInBookmark}"
+                        href="javascript://"
+                        (click)="bookmark()
+                    ">
+                        <i class="fa fa-star"></i>
+                    </a>
                 </div>
             </div>
         </div>

@@ -6,6 +6,7 @@ import * as _ from 'lodash';
 
 import ACTIONTYPES from "../actions/types";
 import { User } from "../models/user-model";
+import {Post} from "../models/search-result.model";
 
 @Injectable()
 export class AuthService implements CanActivate {
@@ -16,22 +17,26 @@ export class AuthService implements CanActivate {
             {
                 "id": 0,
                 "login": "Artem",
-                "password": "123"
+                "password": "123",
+                "bookmarks": []
             },
             {
                 "id": 1,
                 "login": "Jack",
-                "password": "213"
+                "password": "213",
+                "bookmarks": []
             },
             {
                 "id": 2,
                 "login": "Martin",
-                "password": "123"
+                "password": "123",
+                "bookmarks": []
             },
             {
                 "id": 3,
                 "login": "test",
-                "password": "123"
+                "password": "123",
+                "bookmarks": []
             }
         ];
 
@@ -98,7 +103,10 @@ export class AuthService implements CanActivate {
             }, 1000);
         }
         else {
-            localStorage.setItem("isLoggedSession", "true");
+            localStorage.setItem("isLoggedSession", JSON.stringify({
+                login: data.controls.login_name._value,
+                password: data.controls.login_password._value
+            }));
             this.store.dispatch({
                 type: ACTIONTYPES.login,
                 payload: {
@@ -170,13 +178,90 @@ export class AuthService implements CanActivate {
     }
 
     addUserSearch(query:string) {
-        // const newUsers = JSON.parse(localStorage.getItem('users'));
-        // newUsers.push({
-        //     login,
-        //     password
+        // const
+        //     users       = JSON.parse(localStorage.getItem('users')),
+        //     currentUser = JSON.parse(localStorage.getItem('isLoggedSession'));
+        //
+        // _.forEach(users, function(user:User, index:number) {
+        //     if ((user.login == currentUser.login) && (user.password == currentUser.password)) {
+        //         users[index].bookmarks.push(word);
+        //     }
         // });
-        // localStorage.setItem('users', JSON.stringify(newUsers));
-        return JSON.parse(localStorage.getItem('isLoggedSession'));
+        //
+        // localStorage.setItem('users', JSON.stringify(users));
+    }
+
+    addtoBookMark(post:Post) {
+        const
+            users       = JSON.parse(localStorage.getItem('users')),
+            currentUser = JSON.parse(localStorage.getItem('isLoggedSession'));
+
+        _.forEach(users, function(user:User, index:number) {
+            if ((user.login == currentUser.login) &&(user.password == currentUser.password)) {
+                !(_.filter(users[index].bookmarks, {id : post.id}).length > 0) && users[index].bookmarks.push(post);
+            }
+        });
+
+        localStorage.setItem('users', JSON.stringify(users));
+
+        this.store.dispatch({
+            type: ACTIONTYPES.isInBookmark,
+            payload: {
+                isInBookmark : true
+            }
+        });
+
+    }
+
+    removeFromBookMark(post:Post) {
+        const
+            users       = JSON.parse(localStorage.getItem('users')),
+            currentUser = JSON.parse(localStorage.getItem('isLoggedSession'));
+
+        _.forEach(users, function(user:User, index:number) {
+            if ((user.login == currentUser.login) &&(user.password == currentUser.password)) {
+                _.remove(users[index].bookmarks, {id : post.id});
+            }
+        });
+
+        localStorage.setItem('users', JSON.stringify(users));
+
+        this.store.dispatch({
+            type: ACTIONTYPES.isInBookmark,
+            payload: {
+                isInBookmark : false
+            }
+        });
+
+    }
+
+    getBookMarks():Post[] {
+        let
+            users       = JSON.parse(localStorage.getItem('users')),
+            currentUser = JSON.parse(localStorage.getItem('isLoggedSession')),
+            bookmarks:Post[] = [];
+
+        _.forEach(users, function(user:User, index:number) {
+            if ((user.login == currentUser.login) &&(user.password == currentUser.password)) {
+                bookmarks = users[index].bookmarks;
+            }
+        });
+
+        return bookmarks;
+    }
+
+    isInBookMark(post:Post) {
+
+        const bookmarks = this.getBookMarks();
+
+        if (_.filter(bookmarks, {id : post.id}).length > 0) {
+            this.store.dispatch({
+                type: ACTIONTYPES.isInBookmark,
+                payload: {
+                    isInBookmark : true
+                }
+            });
+        }
     }
 
     private handleError(error: any): Promise<any> {

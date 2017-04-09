@@ -3,6 +3,7 @@ import {Store} from "@ngrx/store";
 import {ActivatedRoute, Params} from "@angular/router";
 import {Post} from "../../models/search-result.model";
 import {YouTubeService} from "../../services/youtube.service";
+import {AuthService} from "../../services/auth-service";
 
 @Component({
     selector: 'post-page',
@@ -18,12 +19,18 @@ export class PostPageComponent {
         kind: ''
     };
     youtubeVideoId: string = '';
+    isInBookmark: boolean = false;
 
     constructor(
         private store: Store<any>,
         private youtube: YouTubeService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private auth: AuthService
     ) {}
+
+    bookmark() {
+        this.isInBookmark ? this.auth.removeFromBookMark(this.post) : this.auth.addtoBookMark(this.post);
+    }
 
     ngOnInit() {
 
@@ -46,8 +53,14 @@ export class PostPageComponent {
                 this.post.description = state.post.items[0].snippet.description || 'No description';
                 this.post.id = state.post.items[0].id;
                 this.youtubeVideoId = `http://www.youtube.com/embed/${state.post.items[0].id}`;
+                this.auth.isInBookMark(this.post);
             }
 
+        });
+
+        this.store.select<any>('bookmarkState').subscribe((state: any) => {
+            console.log('bstate', state);
+            state && (this.isInBookmark = state.isInBookmark);
         });
 
     }

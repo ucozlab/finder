@@ -11,7 +11,6 @@ export const LoginReducer: ActionReducer<any> = (state: {}, action: Action) => {
              return Object.assign({}, state, {
                  shakeForm: action.payload.shakeForm
              });
-
         default:
             return state;
     }
