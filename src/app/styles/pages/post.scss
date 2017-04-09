@@ -1,0 +1,8 @@
+.post {
+  &-bar {
+    @extend .search-bar;
+  }
+  &-title {
+    line-height: 44px;
+  }
+}

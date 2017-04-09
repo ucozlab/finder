@@ -3,6 +3,8 @@ import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 import {AllResults} from '../models/search-result.model';
 import {CurrentSearch} from '../models/current-search.model';
+import {Store} from "@ngrx/store";
+import ACTIONTYPES from "../actions/types";
 
 const YOUTUBE_API_KEY = 'AIzaSyBUU9hIIs9S0Qo2d7cgoxxoPyh2iEbH5z0';
 const YOUTUBE_API_URL = 'https://www.googleapis.com/youtube/v3/search';
@@ -17,7 +19,12 @@ export class YouTubeService {
         searchResults: []
     });
 
-    constructor( private http: Http ) {}
+    searchResult: BehaviorSubject<any> = new BehaviorSubject<any>({});
+
+    constructor(
+        private http: Http,
+        private store: Store<any>
+    ) {}
     
     search(query: CurrentSearch): Observable<AllResults>  {
         let params = [
@@ -61,6 +68,23 @@ export class YouTubeService {
             .subscribe((results: AllResults) => this.searchResults.next(results));
 
         return this.searchResults;
+    }
+
+    getVideoById(id:string) {
+
+        const queryUrl: string = `https://www.googleapis.com/youtube/v3/videos?id=${id}&key=${YOUTUBE_API_KEY}&part=snippet,statistics`;
+        this.http.get(queryUrl)
+            .map((response:any) => response.json())
+            .subscribe((result) => {
+                this.store.dispatch({
+                    type: ACTIONTYPES.post,
+                    payload: {
+                        postLoaded: result
+                    }
+                })
+            });
+
+        // return this.searchResults;
     }
 
 }

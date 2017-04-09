@@ -25,7 +25,11 @@ export class AppComponent {
 
         this.isLoggedIn = this.authService.isLoggedIn();
 
-        this.isLoggedIn ? this.router.navigate(['/search']) : this.router.navigate(['/login']);
+        !this.isLoggedIn && this.router.navigate(['/login']);
+
+        // console.log('this.router.url', this.router.url);
+        //
+        // this.isLoggedIn && (this.router.url === '/') && this.router.navigate(['/search']);
 
         this.store.select('loginState').subscribe((state: any) => {
             state && (this.isLoggedIn = state.isLoggedIn);

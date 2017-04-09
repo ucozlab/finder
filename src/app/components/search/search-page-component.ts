@@ -4,7 +4,7 @@ import {Store} from "@ngrx/store";
 import { FormsModule } from '@angular/forms';
 
 import {CurrentSearch} from "../../models/current-search.model";
-import {AllResults, SearchResult} from "../../models/search-result.model";
+import {AllResults, Post} from "../../models/search-result.model";
 import {YouTubeService} from "../../services/youtube.service";
 import {PagerService} from "../../services/pagination";
 import {TwitterService} from "../../services/twitter.service";
@@ -18,7 +18,7 @@ import {VimeoService} from "../../services/vimeo-service";
 export class SearchPageComponent {
 
     private state: CurrentSearch;
-    private searchResults: SearchResult[] = [];
+    private searchResults: Post[] = [];
     private availableResults: number = 0;
     private disableSearch = false;
     private errorEmptySearch = true;
