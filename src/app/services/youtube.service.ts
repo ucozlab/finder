@@ -40,8 +40,6 @@ export class YouTubeService {
         
         const queryUrl: string = `${YOUTUBE_API_URL}?${params.join('&')}`;
 
-        console.log(queryUrl);
-        
         this.http.get(queryUrl)
             .map((response:any) => {
                 const result = response.json();

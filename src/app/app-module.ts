@@ -19,6 +19,8 @@ import { LoginReducer }         from "./reducers/login.reducer";
 import { YouTubeService }       from "./services/youtube.service";
 import { PagerService }         from "./services/pagination";
 import { AuthService }          from "./services/auth-service";
+import { VimeoService }         from "./services/vimeo-service";
+import { TwitterService }       from "./services/twitter.service";
 
 const storeManager = StoreModule.provideStore({
     currentSearch: SearchReducer,
@@ -45,6 +47,8 @@ const storeManager = StoreModule.provideStore({
     providers: [
         YouTubeService,
         PagerService,
+        VimeoService,
+        TwitterService,
         AuthService
     ],
     bootstrap:    [

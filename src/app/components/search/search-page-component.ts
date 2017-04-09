@@ -8,11 +8,11 @@ import {AllResults, SearchResult} from "../../models/search-result.model";
 import {YouTubeService} from "../../services/youtube.service";
 import {PagerService} from "../../services/pagination";
 import {TwitterService} from "../../services/twitter.service";
+import {VimeoService} from "../../services/vimeo-service";
 
 @Component({
     selector: 'search-page',
     templateUrl: 'search-page-template.html',
-    providers: [TwitterService]
 })
 
 export class SearchPageComponent {
@@ -31,6 +31,7 @@ export class SearchPageComponent {
     constructor(
         private store: Store<CurrentSearch>,
         private youtube: YouTubeService,
+        private vimeo: VimeoService,
         private pagerService: PagerService,
         private twitter: TwitterService,
     ) {}
@@ -44,7 +45,8 @@ export class SearchPageComponent {
                 this.disableSearch = false;
                 this.errorEmptySearch = false;
                 this.youtube.search(state);
-                this.twitter.searchcall(state);
+                this.twitter.search(state);
+                this.vimeo.search(state);
             } else {
                 this.disableSearch = true;
                 this.errorEmptySearch = true;

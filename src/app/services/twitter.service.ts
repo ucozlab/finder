@@ -16,7 +16,7 @@ export class TwitterService {
 
 	constructor(private http: Http){}
 
-	searchcall(searchquery: CurrentSearch) {
+	search(searchquery: CurrentSearch) {
 		var headers = new Headers();
 		var searchterm = 'query=' + searchquery.name;
 
