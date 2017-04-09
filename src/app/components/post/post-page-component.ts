@@ -11,7 +11,12 @@ import {YouTubeService} from "../../services/youtube.service";
 
 export class PostPageComponent {
 
-    post: any;
+    post: Post = {
+        id: '',
+        title: '',
+        description: '',
+        kind: ''
+    };
     youtubeVideoId: string = '';
 
     constructor(
@@ -35,9 +40,11 @@ export class PostPageComponent {
 
         this.store.select<any>('currentSearch').subscribe((state: any) => {
 
-            if (state && state.post) {
-                this.post = state.post;
-                console.log('2', state.post.items[0].id);
+            if (state && state.post && (state.post.kind === 'youtube#videoListResponse')) {
+                this.post.title = state.post.items[0].snippet.title;
+                this.post.kind = 'youtube';
+                this.post.description = state.post.items[0].snippet.description || 'No description';
+                this.post.id = state.post.items[0].id;
                 this.youtubeVideoId = `http://www.youtube.com/embed/${state.post.items[0].id}`;
             }
 

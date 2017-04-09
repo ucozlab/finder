@@ -3,7 +3,7 @@ export interface Post {
     kind: string;
     title: string;
     description: string;
-    thumbnailUrl: string;
+    thumbnailUrl?: string;
 }
 
 export interface AllResults {
