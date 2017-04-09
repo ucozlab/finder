@@ -1,30 +1,31 @@
-import { NgModule }             from "@angular/core";
-import { BrowserModule }        from "@angular/platform-browser";
-import { HttpModule }           from '@angular/http';
-import { ReactiveFormsModule }  from '@angular/forms';
-import { Store, StoreModule}    from "@ngrx/store";
+import { NgModule }               from "@angular/core";
+import { BrowserModule }          from "@angular/platform-browser";
+import { HttpModule }             from '@angular/http';
+import { ReactiveFormsModule }    from '@angular/forms';
+import { Store, StoreModule}      from "@ngrx/store";
 
-import { AppRoutingModule }     from './app-routing-module';
+import { AppRoutingModule }       from './app-routing-module';
 
-import { AppComponent }         from "./app-component";
-import { LoginPageComponent }   from "./components/login/login-page-component";
-import { SearchPageComponent }  from "./components/search/search-page-component";
-import { SearchInputComponent } from "./components/search/search-input-component";
-import { LoginFormComponent }   from "./components/login/login-form-component";
-import { AsideComponent }       from "./components/aside/aside-component";
-import { PostPageComponent }    from "./components/post/post-page-component";
+import { AppComponent }           from "./app-component";
+import { LoginPageComponent }     from "./components/login/login-page-component";
+import { SearchPageComponent }    from "./components/search/search-page-component";
+import { SearchInputComponent }   from "./components/search/search-input-component";
+import { LoginFormComponent }     from "./components/login/login-form-component";
+import { AsideComponent }         from "./components/aside/aside-component";
+import { PostPageComponent }      from "./components/post/post-page-component";
+import { BookmarksPageComponent } from "./components/bookmarks/bookmarks-page-component";
 
-import { SearchReducer }        from "./reducers/search.reducer";
-import { LoginReducer }         from "./reducers/login.reducer";
-import { BookmarkReducer }      from "./reducers/bookmark-reducer";
+import { SearchReducer }          from "./reducers/search.reducer";
+import { LoginReducer }           from "./reducers/login.reducer";
+import { BookmarkReducer }        from "./reducers/bookmark-reducer";
 
-import { YouTubeService }       from "./services/youtube.service";
-import { PagerService }         from "./services/pagination";
-import { AuthService }          from "./services/auth-service";
-import { VimeoService }         from "./services/vimeo-service";
-import { TwitterService }       from "./services/twitter.service";
+import { YouTubeService }         from "./services/youtube.service";
+import { PagerService }           from "./services/pagination";
+import { AuthService }            from "./services/auth-service";
+import { VimeoService }           from "./services/vimeo-service";
+import { TwitterService }         from "./services/twitter.service";
 
-import { SafePipe }             from "./pipes/safe-pipe";
+import { SafePipe }               from "./pipes/safe-pipe";
 
 const storeManager = StoreModule.provideStore({
     currentSearch: SearchReducer,
@@ -49,6 +50,7 @@ const storeManager = StoreModule.provideStore({
         LoginFormComponent,
         AsideComponent,
         PostPageComponent,
+        BookmarksPageComponent,
         SafePipe
     ],
     providers: [

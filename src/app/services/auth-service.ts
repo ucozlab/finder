@@ -48,6 +48,11 @@ export class AuthService implements CanActivate {
         !localStorage.getItem('users') && localStorage.setItem('users', JSON.stringify(this.users));
     }
 
+    private handleError(error: any): Promise<any> {
+        console.error('An error occurred', error);
+        return Promise.reject(error.message || error);
+    }
+
     checkLocalStorage () {
         return ('localStorage' in window && window['localStorage'] !== null);
     }
@@ -110,7 +115,10 @@ export class AuthService implements CanActivate {
             this.store.dispatch({
                 type: ACTIONTYPES.login,
                 payload: {
-                    isLoggedIn : true
+                    isLoggedIn : {
+                        login: data.controls.login_name._value,
+                        password: data.controls.login_password._value
+                    }
                 }
             });
         }
@@ -174,7 +182,12 @@ export class AuthService implements CanActivate {
     }
 
     isLoggedIn() {
-        return JSON.parse(localStorage.getItem('isLoggedSession'));
+        this.store.dispatch({
+            type: ACTIONTYPES.login,
+            payload: {
+                isLoggedIn : JSON.parse(localStorage.getItem('isLoggedSession'))
+            }
+        });
     }
 
     addUserSearch(query:string) {
@@ -262,11 +275,6 @@ export class AuthService implements CanActivate {
                 }
             });
         }
-    }
-
-    private handleError(error: any): Promise<any> {
-        console.error('An error occurred', error);
-        return Promise.reject(error.message || error);
     }
 
 }

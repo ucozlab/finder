@@ -1,7 +1,7 @@
 import { Component, Input } from "@angular/core";
 import { Store } from '@ngrx/store';
 import { AuthService } from './services/auth-service';
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
     selector: 'finder-app',
@@ -16,16 +16,15 @@ export class AppComponent {
     constructor (
         private _router: Router,
         private store: Store<any>,
-        private authService: AuthService
+        private authService: AuthService,
+        private activeRoute: ActivatedRoute
     ) {
         this.router = _router;
     }
 
     ngOnInit(): void {
 
-        this.isLoggedIn = this.authService.isLoggedIn();
-
-        !this.isLoggedIn && this.router.navigate(['/login']);
+        this.authService.isLoggedIn();
 
         // console.log('this.router.url', this.router.url);
         //
@@ -33,8 +32,8 @@ export class AppComponent {
 
         this.store.select('loginState').subscribe((state: any) => {
             state && (this.isLoggedIn = state.isLoggedIn);
-            state && state.isLoggedIn && this.router.navigate(['/search']);
             state && !state.isLoggedIn && this.router.navigate(['/login']);
+            state && state.isLoggedIn && (this.router.url === "/login") && this.router.navigate(['/search']);
         });
 
     }
