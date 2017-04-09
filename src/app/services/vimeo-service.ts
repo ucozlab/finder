@@ -4,11 +4,7 @@ import {Http, Headers} from '@angular/http';
 import {AllResults} from '../models/search-result.model';
 import {CurrentSearch} from '../models/current-search.model';
 
-const VIMEO_CLIENT_KEY      = 'd2dc82abc8a130f15121b249d6f5727eb540315b';
-const VIMEO_CLIENT_SECRETS  = 'xqiXDg9LTR42ldcJi3Dfwht+vdVZhymmAG8IRxgvEdwxMrq5lPq/KbiC14teIyZ//51S0S1S6xv2+QfiTrAaiTL1GYVJK8rZT+M6JkNRjam/VwY+mFuHuMtMOsNIfNcB';
-const VIMEO_AUTH_URL        = 'https://api.vimeo.com/oauth/authorize';
-const VIMEO_TOKEN_URL       = 'https://api.vimeo.com/oauth/access_token';
-const VIMEO_API_URL         = 'https://api.vimeo.com/videos';
+const VIMEO_API_URL         = '/vimeo.php';
 const VIMEO_APP_ID          = '101369';
 
 @Injectable()
@@ -29,14 +25,12 @@ export class VimeoService {
         ];
 
         let headers = new Headers();
-        headers.append('Authorization', `basic " + ${VIMEO_CLIENT_KEY + ":" + VIMEO_CLIENT_SECRETS}`);
+
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
-        const queryUrl: string = `${VIMEO_API_URL}?${params.join('&')}`;
-
-        this.http.get(queryUrl, headers)
+        this.http.post(VIMEO_API_URL, params.join('&'), {headers: headers})
             .map((response:any) => {
-                const result = response.json();
+                const result = response;
                 // const allResults = {
                 //     availableResults: result.pageInfo.totalResults,
                 //     searchResults: result.items.map((item:any) => {
