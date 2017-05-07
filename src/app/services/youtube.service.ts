@@ -65,7 +65,16 @@ export class YouTubeService {
                 console.log(result);
                 return allResults;
             })
-            .subscribe((results: AllResults) => this.searchResults.next(results));
+            .subscribe((results: AllResults) => {
+                this.store.dispatch({
+                    type: ACTIONTYPES.progressBar,
+                    payload: {
+                        progressBarStatus: true,
+                        progressBarText: 'youtube results loaded'
+                    }
+                });
+                return this.searchResults.next(results);
+            });
 
         return this.searchResults;
     }

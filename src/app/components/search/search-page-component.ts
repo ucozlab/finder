@@ -9,6 +9,7 @@ import {YouTubeService} from "../../services/youtube.service";
 import {PagerService} from "../../services/pagination";
 import {TwitterService} from "../../services/twitter.service";
 import {VimeoService} from "../../services/vimeo-service";
+import ACTIONTYPES from "../../actions/types";
 
 @Component({
     selector: 'search-page',
@@ -20,8 +21,6 @@ export class SearchPageComponent {
     private state: CurrentSearch;
     private searchResults: Post[] = [];
     private availableResults: number = 0;
-    private disableSearch = false;
-    private errorEmptySearch = true;
     private errorLocation = false;
     private errorLocationMessage = '';
 
@@ -42,14 +41,10 @@ export class SearchPageComponent {
             this.state = state;
 
             if (state && state.name && state.name.length > 0) {
-                this.disableSearch = false;
-                this.errorEmptySearch = false;
                 this.youtube.search(state);
                 this.twitter.search(state);
                 this.vimeo.search(state);
             } else {
-                this.disableSearch = true;
-                this.errorEmptySearch = true;
                 this.searchResults = [];
                 this.availableResults = 0;
             }
@@ -70,7 +65,14 @@ export class SearchPageComponent {
 
         //subscribe to twitter results
         this.twitter.searchResults.subscribe((results) => {
-            this.searchResults.push(...results);
+            results && this.searchResults.push(...results);
+            this.searchResults = this.searchResults.sort(compareRandom);
+            this.setPage(1);
+        });
+
+        //subscribe to vimeo results
+        this.vimeo.searchResults.subscribe((results: AllResults) => {
+            this.searchResults.push(...results.searchResults);
             this.searchResults = this.searchResults.sort(compareRandom);
             this.setPage(1);
         });

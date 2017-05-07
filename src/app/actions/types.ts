@@ -3,7 +3,8 @@ const ACTIONTYPES = {
     shake: 'LoginForm:INCORRECT_DATA',
     searchtext: 'SearchBox:TEXT_CHANGED',
     post: 'PostLoaded',
-    isInBookmark: 'BookMarkChanged'
+    isInBookmark: 'BookMarkChanged',
+    progressBar: 'progressBar'
 };
 
 export default ACTIONTYPES;

@@ -3,19 +3,23 @@
         <div class="row">
             <div class="col-md-8">
                 <search-input></search-input>
+                <progress-bar></progress-bar>
             </div>
         </div>
     </div>
 </div>
 <div class="content search-content">
     <div class="container">
-        <p class="search-state" *ngIf="availableResults > 0">Available results: {{ availableResults }}</p>
+        <!--<p class="search-state" *ngIf="availableResults > 0">Available results: {{ availableResults }}</p>-->
         <!--<p class="search-state">pager: {{ pager | json }}</p>-->
         <div class="search-results">
             <div *ngFor="let result of pagedItems" class="row col-md-8">
                 <div class="search-result">
                     <a class="search-result__title" [routerLink]="['/post', result.kind, result.id]">
-                        <i class="fa" [ngClass]="{'fa-youtube-square':result.kind === 'youtube','fa-twitter-square':result.kind === 'twitter'}"></i>
+                        <i class="fa" [ngClass]="{
+                        'fa-youtube-square':result.kind === 'youtube',
+                        'fa-twitter-square':result.kind === 'twitter',
+                        'fa-vimeo-square':result.kind === 'vimeo'}"></i>
                         <h2 >{{ result.title }}</h2>
                     </a>
                     <p class="search-result__description">{{ result.description || 'no description' }}</p>
@@ -44,40 +48,3 @@
         </div>
     </div>
 </div>
-
-<!--<div class="container">-->
-    <!--<section class="col-md-8">-->
-        <!--<h1>{{title}}</h1>-->
-        <!--<div class="row col-md-8">-->
-            <!--<search-input [store]="store"></search-input>-->
-            <!--<proximity-selector [store]="store" [disabled]="disableSearch || errorLocation"-->
-            <!--[ngClass]="{ disabled: disableSearch }"></proximity-selector>-->
-        <!--</div>-->
-        <!--<div class="row col-md-8 alert alert-danger" *ngIf="errorEmptySearch">-->
-        <!--<p>Can't use geolocalization with an empty searchbox</p>-->
-        <!--</div>-->
-        <!--<div class="row col-md-8 alert alert-warning" *ngIf="errorLocation">-->
-        <!--<p>{{ errorLocationMessage }}</p>-->
-        <!--</div>-->
-        <!--<div class="row col-md-8">-->
-            <!--<p>-->
-                <!--Try to type something in the searchbox, play with the location and with radius: the above state will-->
-                <!--always be consistent and up to date.-->
-            <!--</p>-->
-            <!--<p class="state">{{ state | json }}</p>-->
-            <!--<p class="state" *ngIf="disableSearch">state is empty</p>-->
-            <!--<h2 *ngIf="!disableSearch">Search results:</h2>-->
-        <!--</div>-->
-        <!--<div class="row col-md-8">-->
-            <!--<h2 *ngIf="disableSearch || searchResults.length == 0">No results</h2>-->
-        <!--</div>-->
-        <!--<div class="row col-md-8">-->
-            <!--<div *ngFor="let result of searchResults" class="thumbnail col-sm-6 col-md-4">-->
-                <!--<div class="caption">-->
-                    <!--<h3>{{ result.title }}</h3>-->
-                <!--</div>-->
-                <!--<img src="{{ result.thumbnailUrl }}" />-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</section>-->
-<!--</div>-->

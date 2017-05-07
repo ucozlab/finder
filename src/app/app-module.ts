@@ -3,6 +3,7 @@ import { BrowserModule }          from "@angular/platform-browser";
 import { HttpModule }             from '@angular/http';
 import { ReactiveFormsModule }    from '@angular/forms';
 import { Store, StoreModule}      from "@ngrx/store";
+import { StoreDevtoolsModule }    from '@ngrx/store-devtools';
 
 import { AppRoutingModule }       from './app-routing-module';
 
@@ -14,10 +15,13 @@ import { LoginFormComponent }     from "./components/login/login-form-component"
 import { AsideComponent }         from "./components/aside/aside-component";
 import { PostPageComponent }      from "./components/post/post-page-component";
 import { BookmarksPageComponent } from "./components/bookmarks/bookmarks-page-component";
+import { ProgressBarComponent }   from "./components/progress/progress-bar-component";
 
 import { SearchReducer }          from "./reducers/search.reducer";
 import { LoginReducer }           from "./reducers/login.reducer";
 import { BookmarkReducer }        from "./reducers/bookmark-reducer";
+import { ProgressBarReducer }     from "./reducers/progress-bar-reducer";
+
 
 import { YouTubeService }         from "./services/youtube.service";
 import { PagerService }           from "./services/pagination";
@@ -30,7 +34,8 @@ import { SafePipe }               from "./pipes/safe-pipe";
 const storeManager = StoreModule.provideStore({
     currentSearch: SearchReducer,
     loginState: LoginReducer,
-    bookmarkState: BookmarkReducer
+    bookmarkState: BookmarkReducer,
+    progressBarState: ProgressBarReducer
 });
 
 @NgModule({
@@ -40,7 +45,10 @@ const storeManager = StoreModule.provideStore({
         ReactiveFormsModule,
         AppRoutingModule,
         StoreModule,
-        storeManager
+        storeManager,
+        StoreDevtoolsModule.instrumentOnlyWithExtension({
+            maxAge: 5
+        })
     ],
     declarations: [
         AppComponent,
@@ -51,6 +59,7 @@ const storeManager = StoreModule.provideStore({
         AsideComponent,
         PostPageComponent,
         BookmarksPageComponent,
+        ProgressBarComponent,
         SafePipe
     ],
     providers: [
