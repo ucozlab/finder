@@ -210,7 +210,7 @@ export class AuthService implements CanActivate {
             currentUser = JSON.parse(localStorage.getItem('isLoggedSession'));
 
         _.forEach(users, function(user:User, index:number) {
-            if ((user.login == currentUser.login) &&(user.password == currentUser.password)) {
+            if ((user.login == currentUser.login) && (user.password == currentUser.password)) {
                 !(_.filter(users[index].bookmarks, {id : post.id}).length > 0) && users[index].bookmarks.push(post);
             }
         });
@@ -255,7 +255,7 @@ export class AuthService implements CanActivate {
             bookmarks:Post[] = [];
 
         _.forEach(users, function(user:User, index:number) {
-            if ((user.login == currentUser.login) &&(user.password == currentUser.password)) {
+            if ((user.login == currentUser.login) && (user.password == currentUser.password)) {
                 bookmarks = users[index].bookmarks;
             }
         });

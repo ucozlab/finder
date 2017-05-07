@@ -64,4 +64,23 @@ export class VimeoService {
         return this.searchResults;
     }
 
+    getVideoById(id: string) {
+        var headers = new Headers();
+        var searchterm = 'video_id=' + id;
+
+        headers.append('Content-Type', 'application/X-www-form-urlencoded');
+
+        return this.http.post('/vimeo.php', searchterm, {headers: headers})
+            .map((response) => response.json())
+            .subscribe((result) => {
+                this.store.dispatch({
+                    type: ACTIONTYPES.post,
+                    payload: {
+                        postLoaded: result,
+                        postType: 'vimeo'
+                    }
+                })
+            });
+    }
+
 }

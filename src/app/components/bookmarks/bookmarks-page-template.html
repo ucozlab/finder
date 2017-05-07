@@ -13,8 +13,12 @@
             <div *ngFor="let result of pagedItems" class="row col-md-8">
                 <div class="search-result">
                     <a class="search-result__title" [routerLink]="['/post', result.kind, result.id]">
-                        <i class="fa" [ngClass]="{'fa-youtube-square':result.kind === 'youtube','fa-twitter-square':result.kind === 'twitter'}"></i>
-                        <h2 >{{ result.title }}</h2>
+                        <i class="fa" [ngClass]="{
+                        'fa-youtube-square':result.kind === 'youtube',
+                        'fa-twitter-square':result.kind === 'twitter',
+                        'fa-vimeo-square':result.kind === 'vimeo'
+                        }"></i>
+                        <h2 >{{ result.title || 'No title' }}</h2>
                     </a>
                     <p class="search-result__description">{{ result.description || 'no description' }}</p>
                 </div>

@@ -18,6 +18,9 @@
                                 frameborder="0" allowFullScreen>
                         </iframe>
                     </div>
+                    <div *ngIf="vimeoVideo">
+                        <iframe [src]="vimeoVideo | safe" width="640" height="360" class="youtube-player" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    </div>
                     <div *ngIf="tweet">
                         {{tweet}}
                     </div>

@@ -30,11 +30,9 @@ export class TwitterService {
 		return this.http.post('/twitter.php', searchterm, {headers: headers})
 			.map((res) => {
 
-				console.log('TWressponse(null)->', res.json());
-
 				let result;
 
-				if(res) {
+				if(res.json()) {
 					result = res.json().statuses.map((item:any) => {
 						return {
 							id: item.id_str,

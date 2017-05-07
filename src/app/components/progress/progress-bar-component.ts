@@ -9,6 +9,7 @@ import ACTIONTYPES from "../../actions/types";
 
 export class ProgressBarComponent {
 
+    private subscription;
     status: boolean = false;
     width: number = 0;
     text: string = '';
@@ -20,7 +21,7 @@ export class ProgressBarComponent {
     ngOnInit() {
 
         //subscribe to search input changes
-        this.store.select<any>('progressBarState').subscribe((state: any) => {
+        this.subscription = this.store.select<any>('progressBarState').subscribe((state: any) => {
 
             if (state) {
 
@@ -39,4 +40,9 @@ export class ProgressBarComponent {
         });
 
     }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
+    }
+
 }

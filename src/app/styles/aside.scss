@@ -24,6 +24,10 @@
     &__item {
       display: block;
       margin: 15px 0;
+      &:first-child {
+        border-bottom: 1px solid fade_out($white, 0.4);
+        padding-bottom: 10px;
+      }
       a {
         font-size: 14px;
         color: fade_out($white, 0.4);
