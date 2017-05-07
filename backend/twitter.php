@@ -50,6 +50,18 @@ if(isset($_POST)) {
         $tweets = json_decode($json,true);
     }
 
+    if (!empty($_POST['id'])) {
+        $opts2 = array(
+            'http'=>array(
+                'method' => 'GET',
+                'header' => 'Authorization: Bearer '.$bearer_token
+            )
+        );
+        $context = stream_context_create($opts2);
+        $json = file_get_contents($api_base.'1.1/statuses/show/'.$_POST['id'].'.json',false,$context);
+        $tweets = json_decode($json,true);
+    }
+
     header('Content-Type: application/json');
     echo json_encode($tweets);
     //echo $tweets;

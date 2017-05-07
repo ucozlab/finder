@@ -30,12 +30,14 @@ export class TwitterService {
 		return this.http.post('/twitter.php', searchterm, {headers: headers})
 			.map((res) => {
 
+				console.log('TWressponse(null)->', res.json());
+
 				let result;
 
 				if(res) {
 					result = res.json().statuses.map((item:any) => {
 						return {
-							id: item.id,
+							id: item.id_str,
 							kind: 'twitter',
 							title: item.text,
 							description: `${item.user.name} @ ${moment(item.created_at).format("MMM Do YYYY")}`,
@@ -57,6 +59,25 @@ export class TwitterService {
 				});
 				this.searchResults.next(results);
 			})
+	}
+
+	getPostById(id: string) {
+		var headers = new Headers();
+		var searchterm = 'id=' + id;
+
+		headers.append('Content-Type', 'application/X-www-form-urlencoded');
+
+		return this.http.post('/twitter.php', searchterm, {headers: headers})
+			.map((response) => response.json())
+			.subscribe((result) => {
+				this.store.dispatch({
+					type: ACTIONTYPES.post,
+					payload: {
+						postLoaded: result,
+						postType: 'twitter'
+					}
+				})
+			});
 	}
 
 }

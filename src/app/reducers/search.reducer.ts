@@ -10,7 +10,8 @@ export const SearchReducer: ActionReducer<CurrentSearch> = (state: CurrentSearch
              });
         case ACTIONTYPES.post:
              return Object.assign({}, state, {
-                 post: action.payload.postLoaded
+                 post: action.payload.postLoaded,
+                 postType: action.payload.postType
              });
         default:
             return state;

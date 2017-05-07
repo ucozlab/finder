@@ -11,12 +11,16 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-xs-12">
-                <div class="post-content" *ngIf="youtubeVideoId">
-                    <iframe title="YouTube video player" class="youtube-player" type="text/html"
-                            width="640" height="390" [src]="youtubeVideoId | safe"
-                            frameborder="0" allowFullScreen>
-
-                    </iframe>
+                <div class="post-content">
+                    <div *ngIf="youtubeVideoId">
+                        <iframe title="YouTube video player" class="youtube-player" type="text/html"
+                                width="640" height="390" [src]="youtubeVideoId | safe"
+                                frameborder="0" allowFullScreen>
+                        </iframe>
+                    </div>
+                    <div *ngIf="tweet">
+                        {{tweet}}
+                    </div>
                 </div>
             </div>
             <div class="col-md-4 col-xs-12">

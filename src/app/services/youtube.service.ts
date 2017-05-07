@@ -88,7 +88,8 @@ export class YouTubeService {
                 this.store.dispatch({
                     type: ACTIONTYPES.post,
                     payload: {
-                        postLoaded: result
+                        postLoaded: result,
+                        postType: 'youtube'
                     }
                 })
             });
