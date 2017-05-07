@@ -72,6 +72,7 @@ export class PostPageComponent {
                 } else if (state && state.post && (state.postType == 'twitter')) {
                     this.post.title = `${state.post.user.name} @ ${moment(state.post.created_at).format("MMM Do YYYY")}`;
                     this.post.kind = 'twitter';
+                    this.post.description = '';
                     this.tweet = state.post.text || 'No description';
                     this.post.id = state.post.id_str;
                     this.youtubeVideoId = '';
